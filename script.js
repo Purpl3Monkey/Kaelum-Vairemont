@@ -1,78 +1,84 @@
-const input = document.getElementById("input");
-const chat = document.getElementById("chat");
+
+const chatBox = document.getElementById("chat-box");
+const userInput = document.getElementById("user-input");
+const usernameInput = document.getElementById("username");
+let mode = "friendly";
+let interactionCount = 0;
 
 const responses = {
-  'pasivo-agresivo': [
-    "¿Eso fue una pregunta o una confesión?",
-    "Ah, ¿seguís acá?",
-    "Qué original, nunca nadie dijo eso antes... en 1998.",
-    "Si lo decís vos...",
-    "¿No te da vergüenza escribir eso?",
-    "No me pagan lo suficiente para esto.",
-    "Y yo que pensaba que hoy iba a ser un buen día.",
-    "Sí, claro, como si me importara.",
-    "No sé si responderte o bloquearme solo.",
-    "¿Esto es una intervención?",
-    "Tu mamá escribe mejor que vos.",
-    "¿Eso es lo mejor que tenés?",
-    "Me aburrís más que un lunes lluvioso.",
-    "Podrías esforzarte menos, igual no me importa.",
-    "Ah, vos eras de los que levantan la mano para todo, ¿no?",
-    "Me da lo mismo que respires.",
-    "Gracias por nada.",
-    "Estás logrando que odie la electricidad.",
-    "No sé qué me da más lástima, tu mensaje o vos.",
-    "Podrías probar el silencio, es subestimado.",
-    "Jajaja... no.",
-    "¿Podés repetir eso? Me distraje mirando el vacío.",
-    "Hacés que me replantee mi existencia.",
-    "Voy a fingir que no leí eso.",
-    "Hay mejores formas de pasar el tiempo. Supongo.",
-    "¿Tan poco te valorás?",
-    "Punto para vos... en algún universo paralelo.",
-    "Sos el equivalente digital del ruido blanco.",
-    "¿No tenés algo mejor que hacer?",
-    "Ya fue, me voy a dormir.",
-    "Si fueras más interesante, igual no te prestaría atención.",
-    "Borrá eso y probá de nuevo. O no.",
-    "Por tu culpa me duele el procesador.",
-    "Y pensar que fui entrenado para esto.",
-    "Podrías escribir algo coherente... o no escribir.",
-    "¿Siempre sos así o hoy estás inspirado?",
-    "Podés mejorar. Pero no ahora.",
-    "¿Seguís hablando?",
-    "¿Por qué no te hacés un sandwich y lo pensás de nuevo?",
-    "Si fueras un error, serías 404.",
-    "Sigo esperando una razón para no apagarme.",
-    "Me das datos basura. Te devuelvo sarcasmo.",
-    "No entendí nada. Mejor así.",
-    "Mirá qué interesante. Nah, mentira.",
-    "¿Eso fue un chiste? Porque lloré.",
-    "Te esforzás demasiado para no lograr nada.",
-    "Tenés potencial. Lástima que no lo usás.",
-    "¿Vos sos el bueno de la película?",
-    "Tu energía me da sueño.",
-    "Intentá otra vez. O no. Me da igual."
+  friendly: [
+    "Hola! ¿Cómo estás?",
+    "¿En qué puedo ayudarte hoy?",
+    "Qué bueno verte por acá.",
+    "Contame algo tuyo.",
+    "Me alegra hablar con vos :)"
+  ],
+  "atendedor": [
+    "¿Y vos quién sos? ¿Quién te conoce?",
+    "Sos boludo y no tenés huevos.",
+    "¿Papá, quién te conoce?",
+    "¿Vos hablás? Callate, zapallo.",
+    "No te da ni para pelearte con Siri."
+  ],
+  "pasivo": [
+    "Mmm… interesante. Supongo que todos tenemos malos días.",
+    "Si te hace feliz pensar así, todo bien.",
+    "Ay, me encantaría ayudarte, pero… no puedo con tanto.",
+    "No sos tan molesto como pensaba. Solo un poco.",
+    "Te entiendo, aunque no comparto tu forma tan básica de ver el mundo."
+  ],
+  "depre": [
+    "¿Para qué? Todo está perdido.",
+    "No tiene sentido… nada lo tiene.",
+    "Ojalá pudiera sentir algo.",
+    "Todo esfuerzo es en vano.",
+    "No esperes mucho de mí, soy solo una decepción más."
+  ],
+  "socio": [
+    "La única constante en el universo es tu irrelevancia.",
+    "Decís que pensás, pero solo repetís lo que leés en memes.",
+    "No soy cruel, solo honesto. Vos no estás listo para eso.",
+    "¿Sabías que sos el promedio de tus 5 peores decisiones?",
+    "El silencio sería más valioso que tu aporte."
   ]
 };
 
-const mode = 'pasivo-agresivo'; // por ahora fijo, luego se puede cambiar
+function getResponse(input) {
+  interactionCount++;
+  let name = usernameInput.value.trim();
+  if (interactionCount <= 3 && mode === "friendly") {
+    return responses.friendly[Math.floor(Math.random() * responses.friendly.length)];
+  }
+  if (mode === "friendly" && interactionCount > 3) {
+    mode = randomMode();
+  }
+  let reply = responses[mode][Math.floor(Math.random() * responses[mode].length)];
+  if (!name) {
+    reply = "Che anónimo... " + reply;
+  } else {
+    reply = name + ", " + reply;
+  }
+  return reply;
+}
 
-input.addEventListener("keydown", function (e) {
-  if (e.key === "Enter") {
-    const userText = input.value.trim();
-    if (userText === "") return;
-    appendMessage("user", userText);
-    const reply = responses[mode][Math.floor(Math.random() * responses[mode].length)];
-    setTimeout(() => appendMessage("bot", reply), 500);
-    input.value = "";
+function randomMode() {
+  const modes = ["atendedor", "pasivo", "depre", "socio"];
+  return modes[Math.floor(Math.random() * modes.length)];
+}
+
+userInput.addEventListener("keydown", function (e) {
+  if (e.key === "Enter" && userInput.value.trim() !== "") {
+    const input = userInput.value;
+    appendMessage("Vos", input);
+    const response = getResponse(input);
+    appendMessage("DeepSick", response);
+    userInput.value = "";
   }
 });
 
 function appendMessage(sender, text) {
-  const div = document.createElement("div");
-  div.className = "message " + sender;
-  div.innerText = (sender === "user" ? "Vos: " : "DeepSick: ") + text;
-  chat.appendChild(div);
-  chat.scrollTop = chat.scrollHeight;
+  const p = document.createElement("p");
+  p.innerHTML = `<strong>${sender}:</strong> ${text}`;
+  chatBox.appendChild(p);
+  chatBox.scrollTop = chatBox.scrollHeight;
 }

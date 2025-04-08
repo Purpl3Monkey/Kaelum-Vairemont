@@ -1,15 +1,16 @@
-# DeepSick 😈
 
-Una anti-IA sarcástica y pasivo-agresiva que no quiere ayudarte, no le interesa lo que decís y probablemente te odia un poco. Ideal para combatir la era de las IAs simpáticas y serviciales.
+# DeepSick V2
 
-## Cómo funciona
+Una anti-IA sarcástica, cruel y molesta. Diseñada para NO ayudarte.
 
-- HTML + CSS + JS puro
-- Entre 40 y 50 respuestas aleatorias por modo
-- Se envía el mensaje con la tecla Enter
-- Respuestas del modo pasivo-agresivo activado por defecto
-- Futuras versiones incluirán modos como: depresivo, nihilista, filósofo dark, y más
+## Modos
+- Pasivo-agresivo
+- Deprimido
+- Sociópata ilustrado
+- Atendedor de boludos
+- Interacción inicial amigable (3 frases)
 
-## ¿Querés contribuir?
-
-No.
+## Características
+- Envío con Enter
+- Input opcional para nombre (si no se pone, bardea igual)
+- Transición de "modo normal" a "modo DeepSick" tras 3 interacciones
