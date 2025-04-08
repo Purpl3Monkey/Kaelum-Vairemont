@@ -1,16 +1,17 @@
+# DeepSick v3.5
 
-# DeepSick V2
+DeepSick es una anti-IA sarcástica que empieza amable y se vuelve un atendedor de boludos cuando menos te lo esperás.
 
-Una anti-IA sarcástica, cruel y molesta. Diseñada para NO ayudarte.
+## Modo de uso
 
-## Modos
-- Pasivo-agresivo
-- Deprimido
-- Sociópata ilustrado
-- Atendedor de boludos
-- Interacción inicial amigable (3 frases)
+1. Ingresá al sitio.
+2. Escribí lo que quieras. Al principio DeepSick responde bien...
+3. ...pero después se transforma en algo insoportable.
 
-## Características
-- Envío con Enter
-- Input opcional para nombre (si no se pone, bardea igual)
-- Transición de "modo normal" a "modo DeepSick" tras 3 interacciones
+Inspirado en el meme del Atendedor de Boludos.
+
+## Deploy
+
+Subilo a GitHub y conectalo con Netlify para hacerlo público.
+
+Creado con amor, odio y mucho sarcasmo.

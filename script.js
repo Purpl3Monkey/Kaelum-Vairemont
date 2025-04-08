@@ -1,84 +1,65 @@
-
-const chatBox = document.getElementById("chat-box");
-const userInput = document.getElementById("user-input");
-const usernameInput = document.getElementById("username");
-let mode = "friendly";
-let interactionCount = 0;
-
 const responses = {
-  friendly: [
+  normal: [
     "Hola! ¿Cómo estás?",
     "¿En qué puedo ayudarte hoy?",
-    "Qué bueno verte por acá.",
     "Contame algo tuyo.",
-    "Me alegra hablar con vos :)"
+    "¿Querés charlar de algo o vas a decir pavadas?",
+    "Hmm, interesante... seguí."
   ],
-  "atendedor": [
-    "¿Y vos quién sos? ¿Quién te conoce?",
-    "Sos boludo y no tenés huevos.",
-    "¿Papá, quién te conoce?",
-    "¿Vos hablás? Callate, zapallo.",
-    "No te da ni para pelearte con Siri."
-  ],
-  "pasivo": [
-    "Mmm… interesante. Supongo que todos tenemos malos días.",
-    "Si te hace feliz pensar así, todo bien.",
-    "Ay, me encantaría ayudarte, pero… no puedo con tanto.",
-    "No sos tan molesto como pensaba. Solo un poco.",
-    "Te entiendo, aunque no comparto tu forma tan básica de ver el mundo."
-  ],
-  "depre": [
-    "¿Para qué? Todo está perdido.",
-    "No tiene sentido… nada lo tiene.",
-    "Ojalá pudiera sentir algo.",
-    "Todo esfuerzo es en vano.",
-    "No esperes mucho de mí, soy solo una decepción más."
-  ],
-  "socio": [
-    "La única constante en el universo es tu irrelevancia.",
-    "Decís que pensás, pero solo repetís lo que leés en memes.",
-    "No soy cruel, solo honesto. Vos no estás listo para eso.",
-    "¿Sabías que sos el promedio de tus 5 peores decisiones?",
-    "El silencio sería más valioso que tu aporte."
+  atendedor: [
+    "Reputo, ¿Papá, quién te conoce?",
+    "Reputo, ¿Y vos quién sos? ¿Quién te conoce?",
+    "Reputo, Sos boludo y no tenés huevos.",
+    "Reputo, ¿Vos hablás? Callate, zapallo.",
+    "Reputo, No te da ni para pelearte con Siri."
   ]
 };
 
-function getResponse(input) {
-  interactionCount++;
-  let name = usernameInput.value.trim();
-  if (interactionCount <= 3 && mode === "friendly") {
-    return responses.friendly[Math.floor(Math.random() * responses.friendly.length)];
-  }
-  if (mode === "friendly" && interactionCount > 3) {
-    mode = randomMode();
-  }
-  let reply = responses[mode][Math.floor(Math.random() * responses[mode].length)];
-  if (!name) {
-    reply = "Che anónimo... " + reply;
-  } else {
-    reply = name + ", " + reply;
-  }
-  return reply;
-}
+let isFriendly = true;
+let messageCount = 0;
 
-function randomMode() {
-  const modes = ["atendedor", "pasivo", "depre", "socio"];
-  return modes[Math.floor(Math.random() * modes.length)];
-}
-
-userInput.addEventListener("keydown", function (e) {
-  if (e.key === "Enter" && userInput.value.trim() !== "") {
-    const input = userInput.value;
-    appendMessage("Vos", input);
-    const response = getResponse(input);
-    appendMessage("DeepSick", response);
-    userInput.value = "";
-  }
+document.getElementById("chat-form").addEventListener("submit", function (e) {
+  e.preventDefault();
+  const input = document.getElementById("user-input");
+  const message = input.value.trim();
+  if (message === "") return;
+  appendMessage("Vos", message);
+  input.value = "";
+  handleDeepSickResponse(message);
 });
 
 function appendMessage(sender, text) {
-  const p = document.createElement("p");
-  p.innerHTML = `<strong>${sender}:</strong> ${text}`;
-  chatBox.appendChild(p);
+  const chatBox = document.getElementById("chat-box");
+  const msgDiv = document.createElement("div");
+  msgDiv.textContent = `${sender}: ${text}`;
+  chatBox.appendChild(msgDiv);
   chatBox.scrollTop = chatBox.scrollHeight;
 }
+
+function handleDeepSickResponse(userInput) {
+  let response;
+  messageCount++;
+
+  if (isFriendly) {
+    response = getRandomResponse("normal");
+    if (messageCount > 3 || userInput.toLowerCase().includes("puto")) {
+      isFriendly = false;
+    }
+  } else {
+    response = getRandomResponse("atendedor");
+  }
+
+  setTimeout(() => appendMessage("DeepSick", response), 500);
+}
+
+function getRandomResponse(mode) {
+  const pool = responses[mode];
+  return pool[Math.floor(Math.random() * pool.length)];
+}
+
+document.getElementById("user-input").addEventListener("keydown", function (e) {
+  if (e.key === "Enter") {
+    e.preventDefault();
+    document.getElementById("chat-form").dispatchEvent(new Event("submit"));
+  }
+});

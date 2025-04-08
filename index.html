@@ -1,18 +1,19 @@
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>DeepSick</title>
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
   <div class="container">
-    <h1>DeepSick</h1>
-    <input id="username" type="text" placeholder="Ingresá tu nombre (opcional)"/>
-    <div id="chat-box"></div>
-    <input id="user-input" type="text" placeholder="Decí algo..." autofocus />
+    <h1 class="title">DeepSick</h1>
+    <div id="chat-box" class="chat-box"></div>
+    <form id="chat-form">
+      <input type="text" id="user-input" placeholder="Decile algo a DeepSick..." autocomplete="off" />
+      <button type="submit">Enviar</button>
+    </form>
   </div>
   <script src="script.js"></script>
 </body>
