@@ -1,13 +1,15 @@
-# DeepSick
+# DeepSick 😈
 
-Un bot conversacional sarcástico que no quiere ayudarte, no le importa lo que decís y probablemente no funcione.
+Una anti-IA sarcástica y pasivo-agresiva que no quiere ayudarte, no le interesa lo que decís y probablemente te odia un poco. Ideal para combatir la era de las IAs simpáticas y serviciales.
 
-## Cómo usarlo
+## Cómo funciona
 
-1. Subí estos archivos a un nuevo repositorio en GitHub
-2. Conectá ese repo a Netlify (o arrastrá el ZIP a la interfaz)
-3. ¡Listo! DeepSick está online.
+- HTML + CSS + JS puro
+- Entre 40 y 50 respuestas aleatorias por modo
+- Se envía el mensaje con la tecla Enter
+- Respuestas del modo pasivo-agresivo activado por defecto
+- Futuras versiones incluirán modos como: depresivo, nihilista, filósofo dark, y más
 
----
+## ¿Querés contribuir?
 
-Hecho con amor, odio y una pizca de cinismo por Macaco & Kaelum Vairemont 🧠💀
+No.
