@@ -1,0 +1,1 @@
+// Componente del chat
